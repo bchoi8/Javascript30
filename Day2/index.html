@@ -72,14 +72,35 @@
 
   <script>
     const secondHand = document.querySelector('.second-hand');
+    const hourHand = document.querySelector('.hour-hand');
+    const minuteHand = document.querySelector('.min-hand');
+
+    const transitionTxt = 'all 0.05s';
 
     function setDate(){
         const currentDate = new Date();
         const currentSeconds = currentDate.getSeconds();
+        const currentMinute = currentDate.getMinutes();
+        const currentHour = currentDate.getHours();
+        
         const secondHandDegrees = ((currentSeconds / 60) * 360) + 90;
-        secondHand.style.transform = `rotate(${secondHandDegrees}deg)`;
+        const minuteHandDegrees = ((currentMinute / 60) * 360) + 90;
+        const hourHandDegrees = ((currentHour / 12) * 360) + 90;
+        
+        animateHand(currentSeconds, secondHand, secondHandDegrees);
+        animateHand(currentMinute, minuteHand, minuteHandDegrees);
+        animateHand(currentHour, hourHand, hourHandDegrees);
     };
 
+    function animateHand(time, hand, degree) {
+        if (time === 0) {
+            hand.style.transition = 'none';
+        } else {
+            hand.style.transition = transitionTxt;
+        }
+        hand.style.transform = `rotate(${degree}deg)`;
+    }
+    
     setInterval(setDate, 1000);
   </script>
 </body>
