@@ -65,14 +65,22 @@
       transform-origin: 100%;
       transform: rotate(90deg);
       transition: all 0.05s;
-      transition-timing-function: cubic-bezier(0.42, 0, 0, 5.89);
+      transition-timing-function: cubic-bezier(0.14, 1.92, 0.42, 1.12);
     }
 
   </style>
 
   <script>
-    
+    const secondHand = document.querySelector('.second-hand');
 
+    function setDate(){
+        const currentDate = new Date();
+        const currentSeconds = currentDate.getSeconds();
+        const secondHandDegrees = ((currentSeconds / 60) * 360) + 90;
+        secondHand.style.transform = `rotate(${secondHandDegrees}deg)`;
+    };
+
+    setInterval(setDate, 1000);
   </script>
 </body>
 </html>
